@@ -61,7 +61,7 @@ ol, ul {
 .game {
   display: flex;
   flex-direction: row;
-  margin-left: 300px;
+  margin-left: 250px;
 }
 
 .game-info {
@@ -69,8 +69,8 @@ ol, ul {
 }
 
 .game-rules {
-    font-size: 25px;
-    color: white;
+    font-size: 20px;
+    color: blue;
     font-family: Georgia, 'Times New Roman', Times, serif;
 }
 

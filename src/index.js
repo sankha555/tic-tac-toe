@@ -60,11 +60,16 @@ class Game extends React.Component {
         const history = this.state.history.slice(0, this.state.stepNumber+1);
         const current = history[history.length - 1];
         const squares = current.squares.slice();
-        if (checkWinner(squares) || squares[i]) {
+        if (checkWinner(squares)) {
             return;
         }
 
-        if (checkDraw(squares)){
+        if (squares[i]){   
+            return;
+        }
+
+        if (checkDraw(squares)){   
+            raise_alert("Game Tied!");   
             return;
         }
 
@@ -78,6 +83,8 @@ class Game extends React.Component {
             stepNumber: history.length,
             isXnext: !this.state.isXnext
         });
+
+        
     }
 
     jumpTo(step) {
@@ -94,9 +101,9 @@ class Game extends React.Component {
 
         let status;
         if (winner) {
-            status = "Player " + winner + " has won!";
+            status = "Player " + winner + " has won!";        
         } else if(checkDraw(current.squares)){
-            status = "Game Tied!";
+            status = "Game Tied!";       
         } else{
             status = "Next Move for Player " + (this.state.isXnext ? 'X' : 'O');
         } 
@@ -105,7 +112,7 @@ class Game extends React.Component {
             <div className="game">
                 <table>
                     <tr>
-                        <td>
+                        <td colspan="2" align="center">
                             <h1>xoxo --- TIC - TAC - TOE --- xoxo</h1>
                         </td>  
                     </tr>
@@ -123,6 +130,30 @@ class Game extends React.Component {
                                     <button onClick={() => this.jumpTo(0)}>Restart</button>
                                 </div>                    
                             </div>
+                        </td>
+                        <td>
+                            <div class="game-rules">
+                                <h4><u>RULES</u></h4>
+                                <ol>
+                                    <li>
+                                        Board consists of a 3x3 matrix. 2 Players with counters 'X' and 'O' play in this game.
+                                    </li>
+                                    <li>
+                                        The players take alternate turns to fill the board strategically with their counters.
+                                    </li>
+                                    <li>
+                                        The first one to fill a row, column or diagonal of the board with their marker wins.
+                                    </li>
+                                    <li>
+                                        If all squares of the board are filled with no winner, the game ends in a tie.
+                                    </li>
+                                </ol>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" align="center">
+                            <h4><font color="green">Made with React.js</font></h4>
                         </td>
                     </tr>
                 </table>
@@ -168,4 +199,8 @@ function checkDraw(squares){
         }
     }
     return flag;
+}
+
+function raise_alert(status) {
+    alert(status)
 }
